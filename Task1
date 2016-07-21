@@ -1,0 +1,19 @@
+import numpy as np
+
+matrix = np.random.uniform(-9, 9, (10, 10, 10)) 
+
+prod_1 = np.ones((10,10)) #                                                                               z
+prod_2 = np.ones((10,10)) #задаємо одиничні матриці, яку будемо зповнювати елементами з matrix вздовж осі y
+prod_3 = np.ones((10,10)) #                                                                               x
+
+for x in range(10):
+    for y in range(10):
+        for z in range(10):
+            prod_1[x, y] *= matrix[x, y, z] 
+            prod_2[x, z] *= matrix[x, y, z] 
+            prod_3[y, z] *= matrix[x, y, z] 
+
+#для знаходження мінімального значення достатньо розглянути 4 випадки:
+#         .             1                       . .                  2                  . .                  3                  . .                4                     .  
+print(min(prod_1.min()*prod_2.min()*prod_3.min(), prod_1.min()*prod_2.max()*prod_3.max(), prod_1.max()*prod_2.min()*prod_3.max(), prod_1.max()*prod_2.max()*prod_3.min()))
+#і знаходимо мінімум серед наших випадків
